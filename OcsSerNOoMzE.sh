@@ -67,7 +67,7 @@ service squid3 restart
 
 chmod -R 777 /home/vps/public_html
 echo ""
-read -p "ใส่ไฟล์ sernoomze.zip ใน /home/vps/public_html กดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
+read -p "ลง OCS WEB กดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
 
 apt-get -y install zip unzip
 cd /home/vps/public_html
