@@ -3,7 +3,7 @@
 
 sudo -i
 
-wget https://github.com/sernoomze/Ocs-web/blob/master/OcsSerNOoMzE.sh
+wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/OcsSerNOoMzE.sh
 
 chmod +x OcsSerNOoMzE.sh && ./OcsSerNOoMzE.sh
 
