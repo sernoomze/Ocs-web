@@ -83,6 +83,7 @@ read -p "ใส่ไฟล์ sernoomze.zip ใน /home/vps/public_html กด
 
 apt-get -y install zip unzip
 cd /home/vps/public_html
+wget https://github.com/sernoomze/Ocs-web/blob/master/sernoomzeocs.zip
 unzip sernoomzeocs.zip
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
