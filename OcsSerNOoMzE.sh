@@ -4,25 +4,13 @@ if [ $USER != 'root' ]; then
 	echo "ขออภัยคุณต้องเรียกการใช้งานนี้เป็น root"
 	exit
 fi
-cd
+
 
 clear
 echo "--------- OCS Panels Installer for Debian -----------"
 echo ""
 echo ""
 echo "ยินดีต้อนรับสู่ Osc Panel Auto Script BY SerNooMzE"
-#echo "คุณสามารถใช้ข้อมูลของตัวเองได้เพียงแค่ กดลบ หรือ กด Enter ถ้าคุณเห็นด้วยกับข้อมูลของเรา"
-#echo ""
-#echo "1.ตั้งรหัสผ่านใหม่สำหรับ user root MySQL:"
-#read -p "Password ใหม่: " -e -i ninjanum DatabasePass
-#echo ""
-#echo "2.ตั้งค่าชื่อฐานข้อมูลสำหรับ OCS Panels"
-#echo "โปรดใช้ตัวอัพษรปกติเท่านั้นห้ามมีอักขระพิเศษอื่นๆที่ไม่ใช่ขีดล่าง (_)"
-#read -p "Name Database: " -e -i sernoomze DatabaseName
-#echo ""
-#echo "เอาล่ะนี่คือทั้งหมดที่ระบบ Ocs Script ต้องการ เราพร้อมที่จะติดตั้งแผง OCS ของคุณแล้ว"
-#read -n1 -r -p "กดปุ่ม Enter เพื่อดำเนินการต่อ ..."
-
 
 apt-get -y update && apt-get -y upgrade
 
