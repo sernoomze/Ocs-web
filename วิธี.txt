@@ -1,0 +1,7 @@
+
+
+
+
+chmod +x OcsSerNOoMzE.sh && ./OcsSerNOoMzE.sh
+
+CREATE DATABASE IF NOT EXISTS sernoomze;EXIT;
