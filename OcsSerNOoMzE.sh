@@ -71,8 +71,10 @@ read -p "ลง OCS WEB กดปุ่ม [Enter] เพื่อดำเน�
 
 apt-get -y install zip unzip
 cd /home/vps/public_html
-wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/deathside_ocs.zip
-unzip deathside_ocs.zip
+wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/URBOY_WEB.zip
+unzip de
+
+unzip URBOY_WEB.zip
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
 
