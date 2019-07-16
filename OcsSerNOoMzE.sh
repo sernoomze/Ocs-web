@@ -13,17 +13,16 @@ echo ""
 echo "ยินดีต้อนรับสู่ Osc Panel Auto Script BY SerNooMzE"
 
 echo ""
-echo "I need to ask some questions before starting setup"
-echo "You can leave the default option and just hit enter if you agree with the option"
+echo "ตั้งพาส และ ชื่อดาด้าเบส ก่อน"
 echo ""
-echo "First I need to know the new password of MySQL root user:"
+echo "ตั้ง password สำหรับ MySQL :"
 read -p "Password baru: " -e -i ตั้งpass DatabasePass
 echo ""
-echo "Finally, name the Database Name for OCS Panels"
+echo "ตั้งชื่อ Database Name สำหรับเวป"
 echo " Please, use one word only, no special characters other than Underscore (_)"
 read -p " Database Name: " -e -i ตั้องชื่อ DatabaseName
 echo ""
-echo "Okay, that's all I need. We are ready to setup your OCS Panels now"
+echo "พร้อมแล้วกดปุ่มอะไรก้ได้เพื่อ setup"
 read -n1 -r -p "Press any key to continue..."
 
 
