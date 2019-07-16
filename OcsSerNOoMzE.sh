@@ -16,11 +16,10 @@ echo ""
 echo "ตั้งพาส และ ชื่อดาด้าเบส ก่อน"
 echo ""
 echo "ตั้ง password สำหรับ MySQL :"
-read -p "Password baru: " -e -i ตั้งpass DatabasePass
+read -p "Password: " -e -i 
 echo ""
 echo "ตั้งชื่อ Database Name สำหรับเวป"
-echo " Please, use one word only, no special characters other than Underscore (_)"
-read -p " Database Name: " -e -i ตั้องชื่อ DatabaseName
+read -p " Database Name: " -e -i 
 echo ""
 echo "พร้อมแล้วกดปุ่มอะไรก้ได้เพื่อ setup"
 read -n1 -r -p "Press any key to continue..."
