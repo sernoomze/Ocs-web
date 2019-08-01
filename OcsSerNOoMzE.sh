@@ -78,18 +78,6 @@ echo ""
 echo "ระบบ Ocs Script ต้องการ เราพร้อมที่จะติดตั้ง OCS"
 read -n1 -r -p "กดปุ่ม Enter เพื่อดำเนินการต่อ ..."
 
-apt-get remove --purge mysql\*
-dpkg -l | grep -i mysql
-apt-get clean
-
-apt-get install -y libmysqlclient-dev mysql-client
-
-service nginx stop
-service php5-fpm stop
-service php5-cli stop
-
-apt-get -y --purge remove nginx php5-fpm php5-cli
-
 #apt-get update
 apt-get update -y
 
@@ -127,25 +115,33 @@ apt-get install -y nginx php5 php5-fpm php5-cli php5-mysql php5-mcrypt
 
 # Install Web Server
 cd
+apt-get -y install nginx php5 php5-fpm php5-cli php5-mysql php5-mcrypt
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/sernoomze/Ocs-web/master/nginx.conf"
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/sernoomze/Ocs-web/master/vps.conf"
-sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup 
+mv /etc/nginx/conf.d/vps.conf /etc/nginx/conf.d/vps.conf.backup 
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/sernoomze/Ocs-web/master/nginx.conf" 
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/sernoomze/Ocs-web/master/vps.conf" 
+sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini 
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 
-mkdir -p /home/vps/public_html
 
 useradd -m vps
-
 mkdir -p /home/vps/public_html
+rm /home/vps/public_html/index.html
 echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
 chown -R www-data:www-data /home/vps/public_html
-chmod -R g+rw /home/vps/public_html
-
+chmod -R g+rw /home/vps/public_html service php5-fpm restart
 service php5-fpm restart
 service nginx restart
+
+apt-get -y install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+
+
+apt-get -y install squid3
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/dathai/SSH-OpenVPN/master/API/squid3.conf"
+
+service squid3 restart
 
 #mysql -u root -p
 so2=$(expect -c "
@@ -157,36 +153,17 @@ echo "$so2"
 #pass
 #CREATE DATABASE IF NOT EXISTS OCS_PANEL;EXIT;
 
-apt-get -y update && apt-get -y upgrade
-
-apt-get -y install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
-wget https://prdownloads.sourceforge.net/webadmin/webmin_1.920_all.deb
-dpkg --install webmin_1.920_all.deb
-sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
-
-rm -f webmin_1.920_all.deb
-
-/usr/share/webmin/changepass.pl /etc/webmin root ninjanum
-
-service webmin restart
-
-apt-get -y --force-yes -f install libxml-parser-perl
-
-echo "unset HISTFILE" >> /etc/profile
-
-
 apt-get -y install zip unzip
 
 cd /home/vps/public_html
 
-rm -f index.html
+rm -f index.php
 
 wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/DeathSide_ocS.zip
 
 unzip DeathSide_ocS.zip
 
 rm -f DeathSide_ocS.zip
-
 
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
@@ -200,7 +177,7 @@ clear
 echo ""
 echo "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-"
 echo ""
-echo "เปิดเบราว์เซอร์และเข้าถึงที่อยู่ http://$MYIP และกรอกข้อมูล 2 ด้านล่าง!"
+echo "เปิดเบราว์เซอร์และเข้าถึงที่อยู่ http://$MYIP/ และกรอกข้อมูล 2 ด้านล่าง!"
 echo "Database:"
 echo "- Database Host: localhost"
 echo "- Database Name: $DatabaseName"
@@ -218,24 +195,29 @@ sleep 3
 echo ""
 read -p "หากขั้นตอนข้างต้นเสร็จสิ้นโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
 echo ""
+read -p "ทำขั้นตอนข้างต้นได้ทำเสร็จแล้วโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
+echo ""
 
-sleep 3
-clear
-echo "
-----------------------------------------------
- Source : OcsSerNOoMzE
-sleep 2
-[√] กำลังเริ่มตรวจสอบ Mysql ..... [ OK !! ]
-sleep 2
-[√] กำลังเริ่มตรวจสอบ nginx ..... [ OK !! ]
-sleep 2
-[√] กำลังเริ่มตรวจสอบ webmin ..... [ OK !! ]
-sleep 2
-[√] กำลังเริ่มตรวจสอบ DeathSide_ocS ..... [ OK !! ]
-sleep 2
-[√] กำลังเริ่มตรวจสอบระบบ ..... [ OK !! ]
-----------------------------------------------
- 
+cd 
+
+apt-get -y update && apt-get -y upgrade
+
+apt-get -y install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+wget https://prdownloads.sourceforge.net/webadmin/webmin_1.920_all.deb
+
+dpkg --install webmin_1.920_all.deb
+
+sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
+
+rm -f webmin_1.920_all.deb
+/usr/share/webmin/changepass.pl /etc/webmin root ninjanum
+
+service webmin restart
+
+apt-get -y --force-yes -f install libxml-parser-perl
+
+echo "unset HISTFILE" >> /etc/profile
+
 sleep 4
 # info
 clear
