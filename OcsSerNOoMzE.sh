@@ -153,17 +153,38 @@ echo "$so2"
 #pass
 #CREATE DATABASE IF NOT EXISTS OCS_PANEL;EXIT;
 
+cd 
+
+apt-get -y update && apt-get -y upgrade
+
+apt-get -y install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+wget https://prdownloads.sourceforge.net/webadmin/webmin_1.920_all.deb
+
+dpkg --install webmin_1.920_all.deb
+
+sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
+
+rm -f webmin_1.920_all.deb
+/usr/share/webmin/changepass.pl /etc/webmin root ninjanum
+
+service webmin restart
+
+apt-get -y --force-yes -f install libxml-parser-perl
+
+echo "unset HISTFILE" >> /etc/profile
+
+
 apt-get -y install zip unzip
 
 cd /home/vps/public_html
 
 rm -f index.php
 
-wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/DeathSide_ocS.zip
+wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/DeathSide_ocs.zip
 
-unzip DeathSide_ocS.zip
+unzip DeathSide_ocs.zip
 
-rm -f DeathSide_ocS.zip
+rm -f DeathSide_ocs.zip
 
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
@@ -195,28 +216,6 @@ sleep 3
 echo ""
 read -p "หากขั้นตอนข้างต้นเสร็จสิ้นโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
 echo ""
-read -p "ทำขั้นตอนข้างต้นได้ทำเสร็จแล้วโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
-echo ""
-
-cd 
-
-apt-get -y update && apt-get -y upgrade
-
-apt-get -y install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
-wget https://prdownloads.sourceforge.net/webadmin/webmin_1.920_all.deb
-
-dpkg --install webmin_1.920_all.deb
-
-sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
-
-rm -f webmin_1.920_all.deb
-/usr/share/webmin/changepass.pl /etc/webmin root ninjanum
-
-service webmin restart
-
-apt-get -y --force-yes -f install libxml-parser-perl
-
-echo "unset HISTFILE" >> /etc/profile
 
 sleep 4
 # info
