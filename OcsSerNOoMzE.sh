@@ -157,6 +157,24 @@ echo "$so2"
 #pass
 #CREATE DATABASE IF NOT EXISTS OCS_PANEL;EXIT;
 
+apt-get -y update && apt-get -y upgrade
+
+apt-get -y install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+wget https://prdownloads.sourceforge.net/webadmin/webmin_1.920_all.deb
+dpkg --install webmin_1.920_all.deb
+sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
+
+rm -f webmin_1.920_all.deb
+
+/usr/share/webmin/changepass.pl /etc/webmin root ninjanum
+
+service webmin restart
+
+apt-get -y --force-yes -f install libxml-parser-perl
+
+echo "unset HISTFILE" >> /etc/profile
+
+
 apt-get -y install zip unzip
 
 cd /home/vps/public_html
@@ -174,22 +192,15 @@ chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
 
 
-chmod 777 /home/vps/public_html/application/controllers/topup/wallet/cookie.txt
-chmod 777 /home/vps/public_html/application/config/database.php
-chmod 755 /home/vps/public_html/application/controllers/topup/wallet/config.php
-chmod 755 /home/vps/public_html/application/controllers/topup/wallet/manager/TrueWallet.php
-chmod 755 /home/vps/public_html/application/controllers/topup/wallet/manager/Curl.php
-chmod 755 /home/vps/public_html/topup/confirm.php
-chmod 755 /home/vps/public_html/topup/get.php
-chmod 755 /home/vps/public_html/topup/index.php
-chmod 755 /home/vps/public_html/topup/input.php
-
+chmod 777 /home/vps/public_html/system/config
+chmod 777 /home/vps/public_html/system/config/database-app.php
+chmod 777 /home/vps/public_html/system/config/route.php
 
 clear
 echo ""
 echo "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-"
 echo ""
-echo "เปิดเบราว์เซอร์และเข้าถึงที่อยู่ http://$MYIP/install และกรอกข้อมูล 2 ด้านล่าง!"
+echo "เปิดเบราว์เซอร์และเข้าถึงที่อยู่ http://$MYIP และกรอกข้อมูล 2 ด้านล่าง!"
 echo "Database:"
 echo "- Database Host: localhost"
 echo "- Database Name: $DatabaseName"
@@ -207,36 +218,13 @@ sleep 3
 echo ""
 read -p "หากขั้นตอนข้างต้นเสร็จสิ้นโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
 echo ""
-read -p "ทำขั้นตอนข้างต้นได้ทำเสร็จแล้วโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
-echo ""
-
-cd /root
-
-apt-get update
-
-service webmin restart
-
-apt-get -y --force-yes -f install libxml-parser-perl
-
-echo "unset HISTFILE" >> /etc/profile
-
-sleep 5
-echo "กรุณาตั้งค่า ระบบเติมเงิน หมายเลขอ้างอิงวอลเลต"
-
-sleep 5
-nano /home/vps/public_html/application/controllers/topup/wallet/config.php
-
-sleep 2
-cd /home/vps/public_html/
-rm -rf install
 
 sleep 3
 clear
 echo "
 ----------------------------------------------
 [√] Source : OcsSerNOoMzE
-[√] ขั้นตอนต่อไปนี้ให้ท่านตอบ..Y
-[√] กำลังเริ่มติดตั้ง : Wallet..... [ OK !! ]
+[√] กำลังเริ่มตรวจสอบ ..... [ OK !! ]
 ----------------------------------------------
  "
 apt-get install curl
@@ -248,12 +236,11 @@ sleep 4
 # info
 clear
 echo "================ การติดตั้งเสร็จสิ้น พร้อมใช้งาน ================" | tee -a log-install.txt
-echo "กรุณาเข้าสู่ระบบ OCS Panel ที่ http://$MYIP:81/" | tee -a log-install.txt
+echo "กรุณาเข้าสู่ระบบ OCS Panel ที่ http://$MYIP" | tee -a log-install.txt
 
 echo "" | tee -a log-install.txt
 #echo "บันทึกการติดตั้ง --> /root/log-install.txt" | tee -a log-install.txt
 #echo "" | tee -a log-install.txt
 echo "โปรดรีบูต VPS ของคุณ!" | tee -a log-install.txt
 echo "=========================================================" | tee -a log-install.txt
-rm -f /root/install.sh
 cd ~/
