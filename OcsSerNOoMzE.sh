@@ -223,15 +223,19 @@ sleep 3
 clear
 echo "
 ----------------------------------------------
-[√] Source : OcsSerNOoMzE
-[√] กำลังเริ่มตรวจสอบ ..... [ OK !! ]
+ Source : OcsSerNOoMzE
+sleep 2
+[√] กำลังเริ่มตรวจสอบ Mysql ..... [ OK !! ]
+sleep 2
+[√] กำลังเริ่มตรวจสอบ nginx ..... [ OK !! ]
+sleep 2
+[√] กำลังเริ่มตรวจสอบ webmin ..... [ OK !! ]
+sleep 2
+[√] กำลังเริ่มตรวจสอบ DeathSide_ocS ..... [ OK !! ]
+sleep 2
+[√] กำลังเริ่มตรวจสอบระบบ ..... [ OK !! ]
 ----------------------------------------------
- "
-apt-get install curl
-service apache2 restart
-apt-get install php5-curl
-service apache2 restart
-
+ 
 sleep 4
 # info
 clear
