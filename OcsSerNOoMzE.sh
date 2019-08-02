@@ -180,11 +180,11 @@ cd /home/vps/public_html
 
 rm -f index.php
 
-wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/DeathSide_ocs.zip
+wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/DeathSide_ocS_v2.zip
 
-unzip DeathSide_ocs.zip
+unzip DeathSide_ocS_v2.zip
 
-rm -f DeathSide_ocs.zip
+rm -f DeathSide_ocS_v2.zip
 
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
