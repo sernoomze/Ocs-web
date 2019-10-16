@@ -180,11 +180,11 @@ cd /home/vps/public_html
 
 rm -f index.php
 
-wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/URBOY_WEB.zip
+wget https://raw.githubusercontent.com/sernoomze/Ocs-web/master/DeathSide_ocS.zip
 
-unzip URBOY_WEB.zip
+unzip DeathSide_ocS.zip
 
-rm -f URBOY_WEB.zip
+rm -f DeathSide_ocS.zip
 
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
