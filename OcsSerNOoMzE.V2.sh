@@ -190,9 +190,9 @@ chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
 
 
-chmod 777 /home/vps/public_html/config
-chmod 777 /home/vps/public_html/config/inc.php
-chmod 777 /home/vps/public_html/config/route.php
+chmod 777 /home/vps/public_html/system/config
+chmod 777 /home/vps/public_html/system/config/database-app.php
+chmod 777 /home/vps/public_html/system/config/route.php
 
 clear
 echo ""
