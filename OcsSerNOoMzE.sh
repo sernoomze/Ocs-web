@@ -111,6 +111,8 @@ chown -R mysql:mysql /var/lib/mysql/
 chmod -R 755 /var/lib/mysql/
 
 apt-get install -y nginx php5 php5-fpm php5-cli php5-mysql php5-mcrypt
+sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini 
+sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 
 useradd -m vps
 mkdir -p /home/vps/public_html
